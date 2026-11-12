@@ -1,0 +1,6 @@
+# Local Firebase configuration (never commit)
+.env
+.env.*
+!.env.example
+firebase-config.local.js
+/outputs/firebase-config.local.js

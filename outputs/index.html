@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>RepCycle</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <div class="app">
+        <header class="topbar">
+            <div class="brand">
+                <div class="logo">R</div>repcycle<span>/ training log</span>
+            </div>
+            <nav class="nav"><button class="navbtn current" data-view="dashboard">Dashboard</button><button
+                    class="navbtn" data-view="plan">Training plan</button><button class="navbtn"
+                    data-view="history">History</button></nav>
+            <div class="profile"><span id="authStatus" class="muted small">Not signed in</span><button class="btnline"
+                    id="authButton">Sign in with Google</button></div>
+        </header>
+        <section class="hero">
+            <div>
+                <div class="eyebrow">Your progression system</div>
+                <h1>Strength, in rotation.</h1>
+                <p>Build momentum across variations. Stay with a lift while it’s working.</p>
+            </div>
+            <div class="week">◷ &nbsp; Week of <strong id="weekdate"></strong></div>
+        </section>
+        <main id="dashboardView">
+            <div class="grid">
+                <section class="card">
+                    <div class="card-head">
+                        <h2>Choose a movement pattern</h2><span class="muted small">01 / 02</span>
+                    </div>
+                    <div class="movement-map" id="movementMap"><svg class="map-lines" id="mapLines"
+                            preserveAspectRatio="none"></svg>
+                        <div class="map-column" id="patterns">
+                            <div class="map-heading">Movement pattern</div>
+                        </div>
+                        <div>
+                            <div class="map-heading">Exercise variation</div>
+                            <div class="exercise-picker" id="exercisePicker"></div>
+                        </div>
+                    </div>
+                    <div class="card-head section-head">
+                        <h2>Add your starting point</h2><span class="muted small">Pick a variation and log a
+                            baseline</span>
+                    </div>
+                    <div class="formrow">
+                        <div class="field"><label>Starting weight · lb</label><input id="weight" type="number" min="0"
+                                placeholder="e.g. 95"></div>
+                        <div class="field"><label>Weekly increase · lb</label><input id="increase" type="number" min="0"
+                                value="5"></div>
+                        <div class="field"><label>Reps</label><input id="reps" type="number" min="1" value="8"></div>
+                    </div>
+                    <div class="addrow"><button class="primary" id="start">＋ Add to my rotation</button></div>
+                    <div class="loghead">
+                        <h2>Recent sessions</h2><span class="muted small" id="sessionCount">0 sessions</span>
+                    </div>
+                    <table class="log">
+                        <thead>
+                            <tr>
+                                <th>DAY / DATE</th>
+                                <th>EXERCISE</th>
+                                <th>WEIGHT</th>
+                                <th>REPS</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logs">
+                            <tr>
+                                <td colspan="5" class="empty">Your training log will show up here.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <aside class="rightstack">
+                    <section class="card focus">
+                        <div class="eyebrow">This week’s focus</div>
+                        <div id="focusExercises"></div>
+                        <div id="emptyFocus" class="big">Ready when you are</div>
+                        <p id="focusText">Choose movement patterns and add exercises to set weekly targets.</p>
+                    </section>
+                    <section class="card">
+                        <div class="card-head">
+                            <h2>Your exercise rotation</h2><span class="muted small">A → B → C</span>
+                        </div>
+                        <div class="rotation-graphic"
+                            aria-label="Exercise lifecycle: progress on variation A, rotate to B and C after a plateau, then return stronger to A.">
+                            <svg viewBox="0 0 720 190" role="img">
+                                <defs>
+                                    <marker id="arrowHead" markerWidth="8" markerHeight="8" refX="6" refY="3"
+                                        orient="auto">
+                                        <path d="M0,0 L0,6 L6,3 z" fill="#eef1f3" />
+                                    </marker>
+                                </defs>
+                                <path class="loop" d="M145 48 C240 5 465 5 565 48" marker-end="url(#arrowHead)" />
+                                <path class="loop" d="M580 75 C640 110 630 147 570 151" marker-end="url(#arrowHead)" />
+                                <path class="loop" d="M550 163 C425 191 245 191 145 157" marker-end="url(#arrowHead)" />
+                                <g class="phase phase-a">
+                                    <rect x="35" y="54" width="155" height="98" rx="10" /><text x="52" y="77">VARIATION
+                                        A</text>
+                                    <path d="M55 135 C80 125 100 98 165 91" />
+                                </g>
+                                <g class="phase phase-b">
+                                    <rect x="282" y="54" width="155" height="98" rx="10" /><text x="299"
+                                        y="77">VARIATION B</text>
+                                    <path d="M302 135 C327 125 347 98 412 91" />
+                                </g>
+                                <g class="phase phase-c">
+                                    <rect x="529" y="54" width="155" height="98" rx="10" /><text x="546"
+                                        y="77">VARIATION C</text>
+                                    <path d="M549 135 C574 125 594 98 659 91" />
+                                </g><text class="progress-note" x="360" y="28" text-anchor="middle">BUILD STRENGTH ·
+                                    ROTATE AFTER A SUSTAINED PLATEAU · RETURN STRONGER</text>
+                            </svg>
+                            <div class="muted small">Each variation has its own productive window. Rotate within the
+                                same movement pattern when progress stalls.</div>
+                        </div>
+                        <div class="cycle" id="cycle"></div>
+                        <div class="exercise-list" id="rotations">
+                            <div class="muted small">Add your first variation to build a rotation.</div>
+                        </div>
+                        <div class="field plateau-setting"><label>Plateau window · weeks</label><input
+                                id="plateauWeeks" type="number" min="2" max="6" value="2"></div>
+                        <div class="notice" id="plateau"><strong>Plateau check</strong><br>Log sessions regularly. If a
+                            variation stalls for 2–3 weeks, we’ll suggest rotating to the next exercise in the same
+                            movement pattern.</div>
+                    </section>
+                </aside>
+            </div>
+        </main>
+        <main id="planView" hidden>
+            <section class="card">
+                <div class="card-head">
+                    <div>
+                        <h2>Training plan</h2>
+                        <div class="muted small plan-subtitle">A snapshot of every exercise in your rotation.
+                        </div>
+                    </div><span class="muted small" id="planCount">0 exercises</span>
+                </div>
+                <div id="planStats"></div>
+            </section>
+        </main>
+        <main id="historyView" hidden>
+            <section class="card">
+                <h2>History</h2>
+                <p class="muted">History view is on hold for now.</p>
+            </section>
+        </main>
+        <div class="footer"><span>Progress patiently. Rotate with purpose.</span><span>RepCycle · Your data stays in
+                this browser</span></div>
+    </div>
+    <div class="toast" id="toast"></div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, serverTimestamp, collection, getDocs, arrayUnion } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+        import { firebaseConfig } from "./firebase-config.local.js";
+        const fbApp = initializeApp(firebaseConfig), auth = getAuth(fbApp), db = getFirestore(fbApp); let currentUser = null;
+        const stateRef = () => doc(db, "users", currentUser.uid, "repcycle", "state");
+        const dayKey = (d = new Date()) => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+        const dayRef = (key = dayKey()) => doc(db, "users", currentUser.uid, "workoutDays", key);
+        async function loadWorkoutDays() {
+            if (!currentUser) return;
+            const snap = await getDocs(collection(db, "users", currentUser.uid, "workoutDays")); state.logs = [];
+            snap.forEach(dayDoc => { const day=dayDoc.data(); (day.exercises||[]).forEach(entry=>state.logs.push({...entry,date:day.dateLabel||dayDoc.id,dayId:dayDoc.id})); });
+            state.logs.sort((a,b)=>(a.loggedAt||0)-(b.loggedAt||0));
+        }
+        async function logWorkoutEntry(entry) {
+            const key=dayKey(),ref=dayRef(key),snap=await getDoc(ref),dateLabel=new Date().toLocaleDateString(undefined,{month:"long",day:"numeric",year:"numeric"}),record={...entry,loggedAt:Date.now()};
+            if(snap.exists()) await setDoc(ref,{date:key,dateLabel,exercises:arrayUnion(record),updatedAt:serverTimestamp()},{merge:true});
+            else await setDoc(ref,{date:key,dateLabel,exercises:[record],createdAt:serverTimestamp(),updatedAt:serverTimestamp()});
+            state.logs.push({...record,date:dateLabel,dayId:key});
+        }
+
+        const data = [['Horizontal press', '↗', ['Bench press', 'Chest press', 'Incline press'], '#8ca8ff'], ['Horizontal pull', '↔', ['Barbell row', 'Chest-supported row', 'Kroc row'], '#77d79a'], ['Vertical press', '↑', ['Military press', 'Viking press', 'DB shoulder press'], '#ff7777'], ['Vertical pull', '↓', ['Machine pull-down', 'Weighted pull-ups', 'Lat pull-down'], '#b18cff'], ['Squat', '⌂', ['Front squat', 'Pendulum squat', 'Smith squat'], '#ffb36b'], ['Hinge', '⌁', ['Deadlift', 'Romanian deadlift', 'Stiff-leg deadlift'], '#f2ce43']]; let selected = 0, selectedExercise = 0, state = { rotations: [], logs: [], settings: { plateauWeeks: 2 } }; state.rotations = Array.isArray(state.rotations) ? state.rotations : []; state.logs = Array.isArray(state.logs) ? state.logs : []; state.settings = state.settings || { plateauWeeks: 2 }; state.settings.plateauWeeks = state.settings.plateauWeeks || 2; const patterns = document.querySelector('#patterns'); function renderPatterns() { patterns.innerHTML = '<div class="map-heading">Movement pattern</div>' + data.map((p, i) => `<button class="pattern ${i === selected ? 'active' : ''}" data-i="${i}">${p[0]}</button>`).join(''); patterns.querySelectorAll('button').forEach(b => b.onclick = () => { selected = +b.dataset.i; selectedExercise = 0; renderPatterns(); renderOptions() }) } function renderOptions() { let box = document.querySelector('#exercisePicker'); box.innerHTML = data.map((p, pi) => p[2].map((x, i) => `<button type="button" class="exercise-choice color-${pi} ${pi === selected && i === selectedExercise ? 'active' : ''}" data-p="${pi}" data-i="${i}">${x.toUpperCase()}</button>`).join('')).join(''); box.querySelectorAll('button').forEach(b => b.onclick = () => { selected = +b.dataset.p; selectedExercise = +b.dataset.i; renderPatterns(); renderOptions() }); drawMap() } function drawMap() { let map = document.querySelector('#movementMap'), svg = document.querySelector('#mapLines'); if (!map || !svg) return; let box = map.getBoundingClientRect(); svg.setAttribute('viewBox', `0 0 ${box.width} ${box.height}`); let paths = []; data.forEach((p, pi) => { let category = patterns.querySelector(`[data-i="${pi}"]`); let options = [...document.querySelectorAll(`#exercisePicker [data-p="${pi}"]`)]; if (!category) return; let saved = state.rotations.find(r => r.pattern === p[0]); options.forEach((choice, ei) => { let a = category.getBoundingClientRect(), b = choice.getBoundingClientRect(), isSaved = saved && choice.textContent.toLowerCase() === saved.name.toLowerCase(), isEditing = pi === selected && ei === selectedExercise; let cls = isSaved ? 'saved' : isEditing ? 'editing' : ''; paths.push(`<path class="${cls}" d="M ${a.right - box.left} ${a.top + a.height / 2 - box.top} C ${a.right - box.left + 70} ${a.top + a.height / 2 - box.top}, ${b.left - box.left - 70} ${b.top + b.height / 2 - box.top}, ${b.left - box.left} ${b.top + b.height / 2 - box.top}"/>`) }) }); svg.innerHTML = paths.join('') } async function save() { localStorage.setItem('repcycle',JSON.stringify({...state,logs:[]})); if(currentUser){try{const {logs,...planState}=state;await setDoc(stateRef(),{...planState,updatedAt:serverTimestamp()})}catch(e){console.error(e);notify('Could not sync plan to Firebase. Check Firestore rules.')}} render() } function notify(t) { let el = document.querySelector('#toast'); el.textContent = t; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 2100) } function render() { let rotations = state.rotations; let active = rotations[0]; document.querySelector('#emptyFocus').style.display = rotations.length ? 'none' : 'block'; document.querySelector('#focusText').style.display = rotations.length ? 'none' : 'block'; document.querySelector('#focusExercises').innerHTML = rotations.map((x, i) => `<div class="focus-exercise"><div class="focus-label">${x.pattern} · ${x.name}</div><div class="target-readout"><span><small>PREVIOUS TARGET</small><strong>${x.previousTarget ?? x.weight} lb</strong></span><span class="target-arrow">→</span><span><small>NEXT TARGET</small><strong>${x.target ?? (x.weight + x.increase)} lb</strong></span><button class="primary" data-log="${i}">Log session</button></div><div class="focus-plateau muted small">${x.stalls >= state.settings.plateauWeeks ? `Plateau: ${x.stalls} weeks. Consider rotating to another ${x.pattern} variation.` : `Next increment: +${x.increase} lb · Plateau check after ${state.settings.plateauWeeks} stalled weeks.`}</div></div>`).join(''); document.querySelectorAll('[data-log]').forEach(btn=>btn.onclick=async()=>{if(!currentUser){notify('Sign in with Google to save daily workout logs.');return}const x=state.rotations[+btn.dataset.log],previousTarget=Number(x.target??(x.weight+x.increase)),nextTarget=previousTarget+x.increase,status=x.increase>0?'PROGRESSED':'PLATEAUED';x.previousTarget=previousTarget;x.weight=previousTarget;x.target=nextTarget;x.stalls=0;try{await logWorkoutEntry({name:x.name,pattern:x.pattern,weight:previousTarget,target:previousTarget,previousTarget,nextTarget,reps:x.reps,status,increment:x.increase});await save();if(document.querySelector('#planView').style.display!=='none')renderPlan();notify(`Logged ${previousTarget} lb · ${status}`)}catch(e){console.error(e);notify('Could not save today’s workout. Check Firestore rules.')}}); document.querySelector('#cycle').innerHTML = ['A', 'B', 'C'].map((l, i) => `<div class="step"><span class="dot cycle-dot cycle-dot-${i}">${l}</span></div>${i < 2 ? '<div class="arrow"></div>' : ''}`).join(''); document.querySelector('#rotations').innerHTML = rotations.length ? rotations.map(x => `<div class="exercise ${x.active ? 'active' : ''}"><span class="letter color-by-name-${['#8ca8ff','#77d79a','#ff7777','#b18cff','#ffb36b','#f2ce43'].indexOf(x.color)}">${x.letter}</span><div><strong>${x.name}</strong><small>${x.pattern} · ${x.weight} lb × ${x.reps}</small></div><span class="tag">${x.active ? 'CURRENT' : 'UP NEXT'}</span></div>`).join('') : '<div class="muted small">Add your first variation to build a rotation.</div>'; let logs = state.logs; document.querySelector('#sessionCount').textContent = `${logs.length} session${logs.length === 1 ? '' : 's'}`; document.querySelector('#logs').innerHTML = logs.length ? logs.slice().reverse().slice(0, 6).map(x => `<tr><td>${x.date}</td><td>${x.name}</td><td>${x.weight} lb</td><td>${x.reps}</td><td>${x.status}</td></tr>`).join('') : '<tr><td colspan="5" class="empty">Your training log will show up here.</td></tr>'; let plateau = document.querySelector('#plateau'); let threshold = state.settings.plateauWeeks || 2; if (active && active.stalls >= threshold) { plateau.innerHTML = `<strong>Plateau check · ${active.stalls} weeks</strong><br>${active.stalls >= threshold ? 'Progress has stalled for ' + active.stalls + ' weeks. Consider rotating to your next ' + active.pattern + ' variation.' : 'No increase logged recently. If performance has stalled for another week, consider switching variations.'}` } else plateau.innerHTML = '<strong>Plateau check</strong><br>Log sessions regularly. If a variation stalls for 2–3 weeks, we’ll suggest rotating to the next exercise in the same movement pattern.' }
+        document.querySelector('#start').onclick = () => { let name = data[selected][2][selectedExercise], w = +document.querySelector('#weight').value; if (!w) { notify('Enter your starting weight first.'); return } let same = state.rotations.filter(x => x.pattern === data[selected][0]); state.rotations = state.rotations.filter(x => x.pattern !== data[selected][0]); let rot = { name, pattern: data[selected][0], weight: w, increase: +document.querySelector('#increase').value || 5, reps: +document.querySelector('#reps').value || 8, letter: ['A', 'B', 'C'][same.length % 3], color: data[selected][3], active: true, stalls: 0, last: w, startedAt: Date.now(), target: w + (+document.querySelector('#increase').value || 5) }; state.rotations.push(rot); save(); renderPatterns(); renderOptions(); notify('Variation added to your rotation.') }; document.querySelector('#plateauWeeks').value = state.settings.plateauWeeks; document.querySelector('#plateauWeeks').onchange = e => { state.settings.plateauWeeks = Math.max(2, Math.min(6, +e.target.value || 2)); e.target.value = state.settings.plateauWeeks; save() }; document.querySelectorAll('.navbtn').forEach(b => b.onclick = () => { document.querySelectorAll('.navbtn').forEach(n => n.classList.toggle('current', n === b));['dashboard', 'plan', 'history'].forEach(v => document.querySelector('#' + v + 'View').hidden = v !== b.dataset.view); if (b.dataset.view === 'plan') renderPlan() }); function renderPlan() { let rows = state.rotations; document.querySelector('#planCount').textContent = `${rows.length} exercise${rows.length === 1 ? '' : 's'}`; document.querySelector('#planStats').innerHTML = rows.length ? `<div class="table-scroll"><table class="log"><thead><tr><th>EXERCISE</th><th>PREVIOUS</th><th>TARGET</th><th>CURRENT</th><th>WORKING PERIOD</th></tr></thead><tbody>${rows.map(x => { let logs = state.logs.filter(l => l.name === x.name), prev = logs.length > 1 ? logs[logs.length - 2].weight : '—', days = x.startedAt ? Math.max(1, Math.floor((Date.now() - x.startedAt) / 86400000)) : 0, dur = days ? `${days} day${days === 1 ? '' : 's'}` : 'Today'; return `<tr><td><strong>${x.name}</strong><div class="muted small">${x.pattern}</div></td><td>${prev === '—' ? '—' : prev + ' lb'}</td><td>${(x.target ?? x.weight + x.increase)} lb</td><td>${x.weight} lb</td><td>${dur}</td></tr>` }).join('')}</tbody></table></div>` : '<div class="empty">Add exercises to your rotation to see their stats here.</div>' } document.querySelector('#weekdate').textContent = new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric' }); renderPatterns(); renderOptions(); render(); document.querySelector('#authButton').onclick = async () => { try { if (currentUser) await signOut(auth); else await signInWithPopup(auth, new GoogleAuthProvider()) } catch (e) { console.error(e); notify('Google sign-in failed. Check authorized domains in Firebase.') } }; onAuthStateChanged(auth, async user => { currentUser = user; document.querySelector('#authStatus').textContent = user ? user.email : 'Not signed in'; document.querySelector('#authButton').textContent = user ? 'Sign out' : 'Sign in with Google'; if (user) { try { let snap = await getDoc(stateRef()); if (snap.exists()) { let cloud=snap.data();state.rotations=cloud.rotations||[];state.settings=cloud.settings||{plateauWeeks:2};document.querySelector('#plateauWeeks').value=state.settings.plateauWeeks||2; } else { let local=JSON.parse(localStorage.getItem('repcycle')||'null');if(local){state.rotations=local.rotations||[];state.settings=local.settings||state.settings;const {logs,...planState}=state;await setDoc(stateRef(),{...planState,updatedAt:serverTimestamp()});} } await loadWorkoutDays();render(); } catch (e) { console.error(e); notify('Could not load cloud data. Check Firestore rules.') } } });
+    </script>
+</body>
+
+</html>

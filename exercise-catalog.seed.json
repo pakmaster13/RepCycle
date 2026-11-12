@@ -1,0 +1,29 @@
+[
+  { "muscle group" :
+    { "chest": [
+    {"id":"sagittal-push","plane":"Sagittal","kind":"Push","label":"Sagittal · Push","pattern":"Sagittal push","color":"#8ca8ff","exercises":
+      ["Incline press","Incline dumbbell press","Landmine press"],"order":1},  
+    {"id":"frontal-push","plane":"Frontal","kind":"Push","label":"Frontal · Push","pattern":"Frontal push","color":"#ff7777","exercises":
+      ["Military press","Viking press","Dumbbell shoulder press"],"order":2},
+    {"id":"transverse-push","plane":"Transverse","kind":"Push","label":"Transverse · Push","pattern":"Transverse push","color":"#8ca8ff","exercises":
+      ["Bench press","Chest press","Dumbbell bench press"],"order":3}
+    ]},
+
+    "back":[
+    {"id":"sagittal-pull","plane":"Sagittal","kind":"Pull","label":"Sagittal · Pull","pattern":"Sagittal pull","color":"#77d79a","exercises":
+      ["Chin-ups","Underhand lat pull-down","Close-grip lat pull-down"],"order":4},
+    {"id":"frontal-pull","plane":"Frontal","kind":"Pull","label":"Frontal · Pull","pattern":"Frontal pull","color":"#b18cff","exercises":
+      ["Wide-grip lat pull-down","Weighted pull-ups","Machine pull-down"],"order":5},    
+    {"id":"transverse-pull","plane":"Transverse","kind":"Pull","label":"Transverse · Pull","pattern":"Transverse pull","color":"#77d79a","exercises":
+      ["Barbell row","Chest-supported row","Kroc row"],"order":6}
+    ],
+  
+    "legs":[ 
+    {"id":"frontal-legs","plane":"Frontal","kind":"Legs","label":"Frontal · Legs","pattern":"Frontal legs","color":"#ffb36b","exercises":
+     ["Lateral lunge","Cossack squat","Lateral step-up"],"order":7},
+    {"id":"sagittal-legs","plane":"Sagittal","kind":"Legs","label":"Sagittal · Legs","pattern":"Sagittal legs","color":"#f2ce43","exercises":
+     ["Front squat","Smith squat","Deadlift","Romanian deadlift","Stiff-leg deadlift"],"order":8},
+    {"id":"transverse-legs","plane":"Transverse","kind":"Legs","label":"Transverse · Legs","pattern":"Transverse legs","color":"#ffb36b","exercises":
+     ["Rotational lunge","Cable rotational squat","Landmine rotational squat"],"order":9}
+    ]}
+]

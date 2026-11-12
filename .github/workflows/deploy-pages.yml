@@ -30,7 +30,7 @@ jobs:
           FIREBASE_CONFIG_JSON: ${{ secrets.FIREBASE_CONFIG_JSON }}
         run: |
           mkdir _site
-          cp index.html styles.css _site/
+          cp index.html styles.css exercise-catalog.seed.json _site/
           node -e 'const fs=require("fs"); const config=JSON.parse(process.env.FIREBASE_CONFIG_JSON || "{}"); if (!config.apiKey || !config.projectId || !config.appId) throw new Error("Add the FIREBASE_CONFIG_JSON repository secret"); fs.writeFileSync("_site/firebase-config.local.js", "export const firebaseConfig = " + JSON.stringify(config) + ";\n");'
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
